@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mini Slot Machine</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ff6a00, #ee0979);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+  }
+
+  h1 {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .slot-machine {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+
+  .reel {
+    width: 60px;
+    height: 60px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+  }
+
+  button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background: #ffd700;
+    color: #333;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+
+  button:hover {
+    transform: scale(1.1);
+  }
+
+  #result {
+    margin-top: 15px;
+    font-size: 1.2rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 400px) {
+    .reel {
+      width: 50px;
+      height: 50px;
+      font-size: 1.5rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<h1>Mini Slot Machine</h1>
+
+<div class="slot-machine">
+  <div class="reel" id="reel1">🍒</div>
+  <div class="reel" id="reel2">🍋</div>
+  <div class="reel" id="reel3">🍉</div>
+</div>
+
+<button id="spinBtn">Spin</button>
+
+<div id="result"></div>
+
+<script>
+const reel1 = document.getElementById('reel1');
+const reel2 = document.getElementById('reel2');
+const reel3 = document.getElementById('reel3');
+const spinBtn = document.getElementById('spinBtn');
+const resultEl = document.getElementById('result');
+
+const symbols = ['🍒','🍋','🍉','⭐','🍇'];
+
+function spinReel() {
+  return symbols[Math.floor(Math.random() * symbols.length)];
+}
+
+spinBtn.addEventListener('click', () => {
+  const r1 = spinReel();
+  const r2 = spinReel();
+  const r3 = spinReel();
+
+  reel1.textContent = r1;
+  reel2.textContent = r2;
+  reel3.textContent = r3;
+
+  if(r1 === r2 && r2 === r3) {
+    resultEl.textContent = "🎉 JACKPOT! You won!";
+  } else if(r1 === r2 || r2 === r3 || r1 === r3) {
+    resultEl.textContent = "😊 Nice! Two symbols match.";
+  } else {
+    resultEl.textContent = "Try again!";
+  }
+});
+</script>
+
+</body>
+</html>
